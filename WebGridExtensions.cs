@@ -37,6 +37,11 @@ public static class WebGridExtensions
         var ul = new TagBuilder("ul");
         var li = new List<TagBuilder>();
 
+        if (webGrid.TotalRowCount <= webGrid.PageCount) {
+            return new HelperResult(writer => {
+                writer.Write(string.Empty);         
+            });
+        }
         
         if (ModeEnabled(mode, WebGridPagerModes.FirstLast)) {
             if (String.IsNullOrEmpty(firstText)) {
